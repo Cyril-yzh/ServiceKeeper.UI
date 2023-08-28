@@ -9,6 +9,9 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ServiceKeeper.Core\ServiceKeeper.Core.csproj" />
   </ItemGroup>
 

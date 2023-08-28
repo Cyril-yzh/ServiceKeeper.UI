@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceKeeper.UI", "ServiceKeeper.UI.csproj", "{EDDFB374-678C-4393-BC12-25E37CFB5E30}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceKeeper.Core", "..\ServiceKeeper.Core\ServiceKeeper.Core.csproj", "{B63CE881-7654-4FE2-A87B-13AB6BF10250}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceKeeper.Core", "..\ServiceKeeper.Core\ServiceKeeper.Core.csproj", "{DB2101F1-63DB-4F19-AB92-44CBB30DEB18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{EDDFB374-678C-4393-BC12-25E37CFB5E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDDFB374-678C-4393-BC12-25E37CFB5E30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDDFB374-678C-4393-BC12-25E37CFB5E30}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B63CE881-7654-4FE2-A87B-13AB6BF10250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B63CE881-7654-4FE2-A87B-13AB6BF10250}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B63CE881-7654-4FE2-A87B-13AB6BF10250}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B63CE881-7654-4FE2-A87B-13AB6BF10250}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB2101F1-63DB-4F19-AB92-44CBB30DEB18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB2101F1-63DB-4F19-AB92-44CBB30DEB18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB2101F1-63DB-4F19-AB92-44CBB30DEB18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB2101F1-63DB-4F19-AB92-44CBB30DEB18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
