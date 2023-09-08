@@ -16,12 +16,12 @@ namespace ServiceKeeper.UI
     {
         //public IOptions<ServiceKeeperUIOptions> _options;
         public ServiceRegistry _registry;
-        public ServiceTaskScheduler _scheduler;
+        public ServiceScheduler _scheduler;
         //private static int ACount = 20; //总数
         //private static int BCount = 0;  //完成数
         //private static int CCount = 0;  //失败数
         //private static int DCount = 0;  //无服务数
-        public ServiceKeeperHub(ServiceRegistry registry, ServiceTaskScheduler scheduler)
+        public ServiceKeeperHub(ServiceRegistry registry, ServiceScheduler scheduler)
         {
             _registry = registry;
             _scheduler = scheduler;

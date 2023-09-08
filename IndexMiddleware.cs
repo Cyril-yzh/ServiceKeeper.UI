@@ -1,23 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using ServiceKeeper.Core;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace ServiceKeeper.UI
 {
@@ -26,11 +13,11 @@ namespace ServiceKeeper.UI
         private readonly IOptions<ServiceKeeperUIOptions> _options;
         private readonly ServiceRole _role;
         private readonly ServiceRegistry _registry;
-        private readonly ServiceTaskScheduler? _scheduler;
+        private readonly ServiceScheduler? _scheduler;
         private readonly RequestDelegate next;
         private readonly bool _isNeedJwt = false;
 
-        public IndexMiddleware(IOptions<ServiceKeeperUIOptions> options, ServiceRegistry serviceRegistry, RequestDelegate next, ServiceTaskScheduler? scheduler)
+        public IndexMiddleware(IOptions<ServiceKeeperUIOptions> options, ServiceRegistry serviceRegistry, RequestDelegate next, ServiceScheduler? scheduler)
         {
             _options = options;
             _registry = serviceRegistry;
@@ -48,6 +35,9 @@ namespace ServiceKeeper.UI
             var httpMethod = context.Request.Method;
             var path = context.Request.Path.Value;
             if (path == null) return;
+
+            Console.WriteLine(path);
+
             // 处理打开请求,返回 index.html
             if (httpMethod == "GET" && Regex.IsMatch(path, $"^/{Regex.Escape(_options.Value.RoutePrefix)}/?index.html$", RegexOptions.IgnoreCase))
             {

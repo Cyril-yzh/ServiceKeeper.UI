@@ -15,10 +15,10 @@ namespace ServiceKeeper.UI.DependencyInjection
         {
             IOptions<ServiceKeeperUIOptions> options = appBuilder.ApplicationServices.GetRequiredService<IOptions<ServiceKeeperUIOptions>>();
             ServiceRegistry serviceRegistry = appBuilder.ApplicationServices.GetService<ServiceRegistry>() ?? throw new Exception("ServiceRegistry 获取失败,请先注册 ServiceKeeper");
-            ServiceTaskScheduler? scheduler;
+            ServiceScheduler? scheduler;
             if (serviceRegistry.CurrentOptions.ServiceRole == ServiceRole.Producer)
             {
-                scheduler = appBuilder.ApplicationServices.GetService<ServiceTaskScheduler>() ?? throw new Exception("ServiceRegistry 获取失败,请先注册 ServiceKeeper");
+                scheduler = appBuilder.ApplicationServices.GetService<ServiceScheduler>() ?? throw new Exception("ServiceRegistry 获取失败,请先注册 ServiceKeeper");
             }
             else
             {
