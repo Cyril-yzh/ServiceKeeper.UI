@@ -4,7 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using ServiceKeeper;
 using ServiceKeeper.Core;
+using ServiceKeeper.UI.SignalHub;
+using ServiceKeeper.UI.Middleware;
 using System.Reflection;
+using ServiceKeeper.UI.Utils;
 
 namespace ServiceKeeper.UI.DependencyInjection
 {
@@ -15,21 +18,21 @@ namespace ServiceKeeper.UI.DependencyInjection
         {
             IOptions<ServiceKeeperUIOptions> options = appBuilder.ApplicationServices.GetRequiredService<IOptions<ServiceKeeperUIOptions>>();
             ServiceRegistry serviceRegistry = appBuilder.ApplicationServices.GetService<ServiceRegistry>() ?? throw new Exception("ServiceRegistry 获取失败,请先注册 ServiceKeeper");
-            ServiceScheduler? scheduler;
             if (serviceRegistry.CurrentOptions.ServiceRole == ServiceRole.Producer)
             {
-                scheduler = appBuilder.ApplicationServices.GetService<ServiceScheduler>() ?? throw new Exception("ServiceRegistry 获取失败,请先注册 ServiceKeeper");
+                if (options.Value.IsTakeOverTaskScheduling)
+                {
+                    TaskLoader taskLoader = appBuilder.ApplicationServices.GetRequiredService<TaskLoader>();
+                    taskLoader.LoadTask();
+                }
+                appBuilder.UseRouting();
+                appBuilder.UseMiddleware<IndexMiddleware>();
+                appBuilder.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapHub<ServiceKeeperHub>("/ServiceKeeper/Hub");
+                });
             }
-            else
-            {
-                scheduler = null;
-            }
-            appBuilder.UseRouting();
-            appBuilder.UseMiddleware<IndexMiddleware>();
-            appBuilder.UseEndpoints(endpoints =>
-            {
-                endpoints.MapHub<ServiceKeeperHub>("/ServiceKeeper/Hub");
-            });
+            Console.WriteLine($"ServiceKeeperUI: {options.Value.ServiceKeeperUrl}/index.html");
             return appBuilder;
         }
     }

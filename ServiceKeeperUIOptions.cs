@@ -11,14 +11,28 @@ namespace ServiceKeeper.UI
     public class ServiceKeeperUIOptions
     {
         /// <summary>
-        /// 获取或设置用于访问 ServiceKeeper-ui 的路由前缀
+        /// 是否由UI接管任务的调度
         /// </summary>
-        public string RoutePrefix { get; set; } = "ServiceKeeper";
+        public bool IsTakeOverTaskScheduling { get; set; } = true;
+        public string TaskDirName { get; set; } = "task";
+        public string LogDirName { get; set; } = "log";
+
+        /// <summary>
+        /// 获取或设置用于访问 ServiceKeeper-ui 的url
+        /// </summary>
+        //public string ServiceKeeperUrl { get; set; } = null!;
+        private string serviceKeeperUrl = "https://localhost:8080/ServiceKeeper/";
+        public string ServiceKeeperUrl
+        {
+            get => serviceKeeperUrl;
+            set => serviceKeeperUrl = new Uri(new Uri(value), "/ServiceKeeper").ToString();
+        }
+
         private byte[]? jwtSecretKey;
         /// <summary>
         /// 用于登陆验证
         /// </summary>
-        public byte[]? JwtSecretKey
+        internal byte[]? JwtSecretKey
         {
             get
             {
@@ -29,6 +43,7 @@ namespace ServiceKeeper.UI
                 jwtSecretKey = value;
             }
         }
+
         /// <summary>
         /// 创建64位Key
         /// </summary>
@@ -42,23 +57,27 @@ namespace ServiceKeeper.UI
             using Rfc2898DeriveBytes hkdf = new(originalKey, salt, 10000, HashAlgorithmName.SHA256);
             JwtSecretKey = hkdf.GetBytes(64); // Derive a 64-byte key
         }
+
         /// <summary>
         /// 获取或设置用于检索 ServiceKeeper-ui 页面的 Stream 函数
         /// </summary>
-        public Func<Stream> ProducerStream { get; set; } = () => typeof(ServiceKeeperUIOptions).Assembly
-            .GetManifestResourceStream("ServiceKeeper.UI.producer-index.html")!;
-        /// <summary>
-        /// 获取或设置用于检索 ServiceKeeper-ui 页面的 Stream 函数
-        /// </summary>
-        public Func<Stream> ConsumerStream { get; set; } = () => typeof(ServiceKeeperUIOptions).Assembly
-            .GetManifestResourceStream("ServiceKeeper.UI.consumer-index.html")!;
+        public Func<Stream> ProducerStream { get; private set; } = () => typeof(ServiceKeeperUIOptions).Assembly
+            .GetManifestResourceStream("ServiceKeeper.UI.Vue.producer-index.html")!;
+
+        ///// <summary>
+        ///// 获取或设置用于检索 ServiceKeeper-ui 页面的 Stream 函数
+        ///// </summary>
+        //public Func<Stream> ConsumerStream { get; private set; } = () => typeof(ServiceKeeperUIOptions).Assembly
+        //    .GetManifestResourceStream("ServiceKeeper.UI.Vue.consumer-index.html")!;
+
         /// <summary>
         /// 获取或设置允许的用户名和密码
         /// key:用户名 value:密码
         /// </summary>
         public Dictionary<string, string> AllowedCredentials { get; set; } = new Dictionary<string, string>();
+        /// <summary>
+        /// 设置Token超时时间
+        /// </summary>
+        public TimeSpan JWTExpirationTime { get; set; } = TimeSpan.FromHours(1);
     }
-
-    //public Func<Stream> IndexStream { get; set; } = () => typeof(SwaggerUIOptions).GetTypeInfo().Assembly
-    //.GetManifestResourceStream("Swashbuckle.AspNetCore.SwaggerUI.index.html");
 }

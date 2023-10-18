@@ -7,18 +7,18 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ServiceKeeper.UI
+namespace ServiceKeeper.UI.Utils
 {
     public static class JwtTokenGenerator
     {
-        public static string GenerateToken(Dictionary<string, object> payload, byte[] secretKey)
+        public static string GenerateToken(Dictionary<string, object> payload, byte[] secretKey,TimeSpan expirationTime)
         {
             var key = new SymmetricSecurityKey(secretKey);
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
                 claims: GetClaims(payload),
-                expires: DateTime.UtcNow.AddMinutes(30), //Token expiration time
+                expires: DateTime.UtcNow.Add(expirationTime), //Token expiration time
                 signingCredentials: creds
             );
 

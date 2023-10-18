@@ -7,7 +7,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Vue\css\app.6520ff8a.css" />
+    <None Remove="Vue\css\chunk-vendors.4771e3fb.css" />
+    <None Remove="Vue\js\app.82d4de9b.js" />
+    <None Remove="Vue\js\chunk-vendors.e1beb2e5.js" />
+    <None Remove="Vue\producer-index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Vue\js\app.82d4de9b.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Vue\css\app.6520ff8a.css" />
+    <EmbeddedResource Include="Vue\css\chunk-vendors.4771e3fb.css" />
+    <EmbeddedResource Include="Vue\js\chunk-vendors.e1beb2e5.js" />
+    <EmbeddedResource Include="Vue\producer-index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Serilog" Version="3.0.1" />
+    <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.1" />
   </ItemGroup>
 
